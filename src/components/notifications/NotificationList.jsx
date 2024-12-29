@@ -24,7 +24,7 @@ export default function NotificationList({ notifications, setNotifications }) {
     };
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-4 p-2 md:p-4">
     <div className="flex justify-between items-center">
       <h3 className="font-semibold text-lg">Notifications</h3>
       <div className="flex gap-2">

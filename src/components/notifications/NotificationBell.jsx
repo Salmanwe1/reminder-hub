@@ -33,7 +33,7 @@ export default function NotificationBell() {
   }, [user]);
 
   return (
-    <Popover>
+    <Popover className="">
       <PopoverTrigger asChild>
         <Button className="relative">
           <Bell className="w-6 h-6" />
@@ -44,7 +44,7 @@ export default function NotificationBell() {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px]">
+      <PopoverContent className="w-11/12 mx-auto md:w-[500px]">
         <ScrollArea className="max-h-80">
           <NotificationList notifications={notifications} setNotifications={setNotifications} />
         </ScrollArea>

@@ -58,10 +58,12 @@ function AssignedReminders() {
       (updatedReminders) => {
         const formattedReminders = updatedReminders.map((reminder) => {
           const dueDate = new Date(reminder.dueDate || Date.now());
+          const endOfDay = new Date(dueDate);
+endOfDay.setHours(23, 59, 59, 999);  // Force end of the day
           const status =
             reminder.status === "Completed"
               ? "Completed"
-              : dueDate < new Date()
+              : endOfDay < new Date()
               ? "Overdue"
               : "Upcoming";
 

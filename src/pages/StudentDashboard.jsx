@@ -70,10 +70,12 @@ function StudentDashboard() {
       (updatedReminders) => {
         updatedReminders.forEach((reminder) => {
           const dueDate = new Date(reminder.dueDate || Date.now());
+          const endOfDay = new Date(dueDate);
+endOfDay.setHours(23, 59, 59, 999);  // Force end of the day
           const status =
             reminder.status === "Completed"
               ? "Completed"
-              : dueDate < new Date()
+              : endOfDay < new Date()
               ? "Overdue"
               : "Upcoming";
   
@@ -99,10 +101,12 @@ function StudentDashboard() {
       (assignedReminders) => {
         assignedReminders.forEach((reminder) => {
           const dueDate = new Date(reminder.dueDate || Date.now());
+          const endOfDay = new Date(dueDate);
+endOfDay.setHours(23, 59, 59, 999);  // Force end of the day
           const status =
             reminder.status === "Completed"
               ? "Completed"
-              : dueDate < new Date()
+              : endOfDay < new Date()
               ? "Overdue"
               : "Upcoming";
   

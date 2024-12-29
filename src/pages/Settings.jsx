@@ -21,7 +21,7 @@ function Settings() {
       </div>
 
       <Tabs defaultValue="profile" className="space-y-10">
-        <TabsList className="dark:bg-emerald-900 dark:text-white w-full">
+        <TabsList className="bg-blue-950 text-white dark:bg-emerald-900 dark:text-white w-full">
           <TabsTrigger value="profile" className="w-full">Profile</TabsTrigger>
           <TabsTrigger value="preference" className="w-full">Preferences</TabsTrigger>
           <TabsTrigger value="security" className="w-full">Account Security</TabsTrigger>

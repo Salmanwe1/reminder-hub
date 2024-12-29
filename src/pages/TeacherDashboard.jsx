@@ -6,22 +6,25 @@ import AssignedReminders from "../components/AssignedReminders";
 
 function TeacherDashboard() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       <Header role="Teacher" page="dashboard" />
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-      </div>
+      <div className="space-y-2">
+          <h2 className="text-4xl font-semibold">Welcome back!</h2>
+          <p className="text-lg text-gray-700">
+            Here&apos;s a list of your reminders!
+          </p>
+        </div>
       <Separator />
 
       <Tabs defaultValue="personal" className="space-y-10">
-        <TabsList className="dark:bg-emerald-900 dark:text-white w-full">
+        <TabsList className="bg-blue-950 text-white dark:bg-emerald-900 dark:text-white w-full">
           <TabsTrigger value="personal" className="w-full">Personal reminders</TabsTrigger>
           <TabsTrigger value="assigned" className="w-full">Reminders Assign to Students</TabsTrigger>
         </TabsList>
-        <TabsContent value="personal" className="ml-5">
+        <TabsContent value="personal" className="">
           <TeacherPersonalReminders />
         </TabsContent>
-        <TabsContent value="assigned" className="ml-5">
+        <TabsContent value="assigned" className="">
           <AssignedReminders />
         </TabsContent>
       </Tabs>

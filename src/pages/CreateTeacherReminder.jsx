@@ -14,7 +14,7 @@ function CreateTeacherReminder() {
       <Separator />
 
       <Tabs defaultValue="personal" className="space-y-10">
-        <TabsList className="dark:bg-emerald-900 dark:text-white w-full">
+        <TabsList className="bg-blue-950 text-white dark:bg-emerald-900 dark:text-white w-full">
           <TabsTrigger value="personal" className="w-full">Personal</TabsTrigger>
           <TabsTrigger value="assigned" className="w-full">Assign to Students</TabsTrigger>
         </TabsList>

@@ -13,10 +13,11 @@ import { updateReminder, deleteReminder } from "../api/reminders";
 import { useState } from "react";
 import { auth } from "../api/firebase";
 import { useAuth } from "../context/AuthContext";
+import ViewReminderDialog from "./ViewReminderDialog";
 
 function AssignedReminderCard({ reminder }) {
   const [status, setStatus] = useState(reminder.status);
-  const { user, role } = useAuth();  // Use role from context
+  const { user, role } = useAuth(); // Use role from context
 
   const handleStatusChange = async () => {
     const newStatus =
@@ -36,7 +37,12 @@ function AssignedReminderCard({ reminder }) {
 
   const handleDelete = async (reminderId) => {
     try {
-      await deleteReminder(reminderId, user.uid, role, reminder.studentIds || []);
+      await deleteReminder(
+        reminderId,
+        user.uid,
+        role,
+        reminder.studentIds || []
+      );
     } catch (error) {
       console.error("Failed to delete reminder", error);
     }
@@ -64,6 +70,10 @@ function AssignedReminderCard({ reminder }) {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          {/* View Action */}
+          <DropdownMenuItem asChild>
+            <ViewReminderDialog reminder={reminder} />
+          </DropdownMenuItem>
           {/* Edit Action */}
           <DropdownMenuItem asChild>
             <EditReminderDialog
@@ -78,10 +88,7 @@ function AssignedReminderCard({ reminder }) {
 
           {/* Delete Action */}
           <DropdownMenuItem asChild>
-            <DeleteReminderDialog
-              reminder={reminder}
-              onDelete={handleDelete}
-            />
+            <DeleteReminderDialog reminder={reminder} onDelete={handleDelete} />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -95,15 +102,12 @@ function AssignedReminderCard({ reminder }) {
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold mb-2">
+      <h3 className="text-lg font-semibold mb-2 line-clamp-1">
         {reminder.title}
-        <Badge variant="outline" className="ml-2">
-          {reminder.category}
-        </Badge>
       </h3>
 
       {/* Description */}
-      <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
+      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
         {reminder.description || "No description provided"}
       </p>
 
@@ -113,6 +117,13 @@ function AssignedReminderCard({ reminder }) {
           <span className="text-xs font-bold">Due Date:</span>
           <Badge variant="outline" className="ml-1">
             {new Date(reminder.dueDate).toLocaleDateString()}
+          </Badge>
+        </div>
+
+        <div>
+          <span className="text-xs font-bold">Category:</span>
+          <Badge variant="outline" className="ml-2 capitalize">
+            {reminder.category}
           </Badge>
         </div>
 

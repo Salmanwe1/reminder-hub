@@ -80,3 +80,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;  /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* Description will show up to 2 lines */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}

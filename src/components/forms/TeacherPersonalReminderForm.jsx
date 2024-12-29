@@ -82,10 +82,11 @@ function TeacherPersonalReminderForm() {
         <Input
           type="text"
           id="title"
-          placeholder="Add title"
+          placeholder="Add title (max 60 characters)"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+          maxLength={60}
           className="max-w-[500px]"
         />
       </div>
@@ -95,9 +96,10 @@ function TeacherPersonalReminderForm() {
         <Label htmlFor="description">Description</Label>
         <Textarea
           id="description"
-          placeholder="Add description (optional)"
+          placeholder="Add description (optional) (max 200 characters)"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          maxLength={200}
           className="max-w-[600px]"
         />
       </div>

@@ -73,10 +73,12 @@ function TeacherPersonalReminders() {
         });
         const formattedReminders = filteredReminders.map((reminder) => {
           const dueDate = new Date(reminder.dueDate || Date.now());
+          const endOfDay = new Date(dueDate);
+endOfDay.setHours(23, 59, 59, 999);  // Force end of the day
           const status =
             reminder.status === "Completed"
               ? "Completed"
-              : dueDate < new Date()
+              : endOfDay < new Date()
               ? "Overdue"
               : "Upcoming";
 
@@ -119,12 +121,6 @@ function TeacherPersonalReminders() {
     <div className="p-4">
       {" "}
       {/* Cards for smaller screens */}
-      <div className="space-y-2 my-5">
-      <h2 className="text-4xl font-semibold">Welcome back!</h2>
-      <p className="text-lg text-gray-700">
-        Here&apos;s a list of your reminders!
-      </p>
-    </div> 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-4 mb-4">
         {/* Search */}

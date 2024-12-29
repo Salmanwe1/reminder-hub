@@ -13,6 +13,7 @@ import { updateReminder, deleteReminder } from "../api/reminders";
 import { useState } from "react";
 import { auth } from "../api/firebase";
 import { useAuth } from "../context/AuthContext"; // Use context for role consistency
+import ViewReminderDialog from "./ViewReminderDialog";
 
 function ReminderCard({ reminder, onDelete }) {
   const [status, setStatus] = useState(reminder.status);
@@ -28,7 +29,7 @@ function ReminderCard({ reminder, onDelete }) {
         : "Completed";
     setStatus(newStatus);
     try {
-      await updateReminder(reminder.id, { ...reminder, status: newStatus });
+      await updateReminder(reminder.id, { status: newStatus });
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -59,59 +60,68 @@ function ReminderCard({ reminder, onDelete }) {
 
   return (
     <div className="border rounded-lg p-4 shadow-sm relative">
-      {/* Three-dot menu for actions */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button className="absolute top-2 right-2 p-2 text-gray-500 hover:text-gray-700">
-            <MoreHorizontal className="h-5 w-5" />
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          {/* Edit Action */}
-          {/* Conditionally Render Edit Option */}
-          {!isStudentAssigned && (
-            <DropdownMenuItem asChild>
-              <EditReminderDialog
-                reminder={reminder}
-                onReminderUpdate={(updatedReminder) =>
-                  updateReminder(updatedReminder.id, updatedReminder)
-                }
-              >
-                Edit
-              </EditReminderDialog>
-            </DropdownMenuItem>
+      {/* First Row - Badge, Switch, Three-Dot Menu */}
+      <div className="flex justify-between items-center mb-4">
+        {/* Left - Assigned By Badge */}
+        <div>
+          {reminder.assignedBy === "Teacher" && (
+            <Badge className="bg-red-500 text-white">
+              {reminder.assignedBy}
+            </Badge>
           )}
-          {/* Delete Action */}
-          <DropdownMenuItem asChild>
-            <DeleteReminderDialog reminder={reminder} onDelete={handleDelete} />
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </div>
 
-      {/* Status Switch */}
-      <div className="absolute top-4 right-11">
-        <Switch
-          checked={status === "Completed"}
-          onCheckedChange={handleStatusChange}
-        />
+        {/* Right - Switch and Menu */}
+        <div className="flex items-center gap-4">
+          <Switch
+            checked={status === "Completed"}
+            onCheckedChange={handleStatusChange}
+          />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="p-2 text-gray-500 hover:text-gray-700">
+                <MoreHorizontal className="h-5 w-5" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {/* View Action */}
+              <DropdownMenuItem asChild>
+                <ViewReminderDialog reminder={reminder} />
+              </DropdownMenuItem>
+              {!isStudentAssigned && (
+                <DropdownMenuItem asChild>
+                  <EditReminderDialog
+                    reminder={reminder}
+                    onReminderUpdate={(updatedReminder) =>
+                      updateReminder(updatedReminder.id, updatedReminder)
+                    }
+                  >
+                    Edit
+                  </EditReminderDialog>
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem asChild>
+                <DeleteReminderDialog
+                  reminder={reminder}
+                  onDelete={handleDelete}
+                />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
 
-      {/* Title */}
-      <h3 className="text-lg font-semibold mb-2">
+      {/* Second Row - Title */}
+      <h3 className="text-lg font-semibold mb-2 line-clamp-1">
         {reminder.title}
-        {reminder.assignedBy === "Teacher" && (
-          <Badge className="ml-1 bg-red-500 text-white">
-            {reminder.assignedBy}
-          </Badge>
-        )}
       </h3>
 
-      {/* Description */}
-      <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
+      {/* Third Row - Description */}
+      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
         {reminder.description}
       </p>
 
-      {/* Metadata */}
+      {/* Fourth Row - Metadata */}
       <div className="flex flex-wrap gap-4">
         <div>
           <span className="text-xs font-bold">Due Date:</span>
