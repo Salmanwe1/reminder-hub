@@ -81,17 +81,17 @@ export function StudentSidebar() {
               ))}
                {/* Logout Item with Modal Trigger */}
                <SidebarMenuItem>
-                <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+                <AlertDialog open={isOpen} onOpenChange={setIsOpen} className="">
                   <AlertDialogTrigger asChild>
                     <SidebarMenuButton
-                      className="flex items-center  rounded-lg hover:text-white hover:bg-red-700"
+                      className="flex items-center rounded-lg hover:text-white hover:bg-red-700"
                       onClick={() => setIsOpen(true)}
                     >
                       <LogOut className="text-white" />
                       <span className="font-semibold text-white">Logout</span>
                     </SidebarMenuButton>
                   </AlertDialogTrigger>
-                  <AlertDialogContent>
+                  <AlertDialogContent className="">
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                       <AlertDialogDescription>

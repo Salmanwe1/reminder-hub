@@ -18,8 +18,8 @@ function TeacherDashboard() {
 
       <Tabs defaultValue="personal" className="space-y-10">
         <TabsList className="bg-blue-950 text-white dark:bg-emerald-900 dark:text-white w-full">
-          <TabsTrigger value="personal" className="w-full">Personal reminders</TabsTrigger>
-          <TabsTrigger value="assigned" className="w-full">Reminders Assign to Students</TabsTrigger>
+          <TabsTrigger value="personal" className="w-full">Personal</TabsTrigger>
+          <TabsTrigger value="assigned" className="w-full">Assigned</TabsTrigger>
         </TabsList>
         <TabsContent value="personal" className="">
           <TeacherPersonalReminders />
